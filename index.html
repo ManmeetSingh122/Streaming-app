@@ -12,28 +12,36 @@
 
     <!-- Backend URL: set to Railway deployment URL in production.
          Leave empty string to use same origin (local dev via Flask). -->
-    <script>
-        window.NETWATCH_BACKEND = (function() {
-            var h = window.location.hostname;
-            // Local dev — Flask serves both frontend and backend on same origin
-            if (h === '127.0.0.1' || h === 'localhost') return '';
-            // Production — point to Railway backend
-            return window.NETWATCH_BACKEND_URL || 'https://web-production-aeed3.up.railway.app';
-        })();
-    </script>
-        window.dismissProfileScreen = function(profile = 'main') {
-            const screen = document.getElementById('profile-screen');
-            if(screen) {
-                screen.style.opacity = '0';
-                screen.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    screen.classList.add('hidden');
-                    window.dispatchEvent(new CustomEvent('profileSelected', { detail: { profile } }));
-                    window.dispatchEvent(new Event('startApp')); 
-                }, 700);
-            }
-        };
-    </script>
+<script>
+window.NETWATCH_BACKEND = (function() {
+    var h = window.location.hostname;
+
+    if (h === '127.0.0.1' || h === 'localhost') return '';
+
+    return window.NETWATCH_BACKEND_URL || 'https://web-production-aeed3.up.railway.app';
+})();
+
+window.dismissProfileScreen = function(profile = 'main') {
+    const screen = document.getElementById('profile-screen');
+
+    if (screen) {
+        screen.style.opacity = '0';
+        screen.style.pointerEvents = 'none';
+
+        setTimeout(() => {
+            screen.classList.add('hidden');
+
+            window.dispatchEvent(
+                new CustomEvent('profileSelected', {
+                    detail: { profile }
+                })
+            );
+
+            window.dispatchEvent(new Event('startApp'));
+        }, 700);
+    }
+};
+</script>
 </head>
 <body class="bg-black text-white overflow-x-hidden antialiased selection:bg-white/20 selection:text-white pb-32 md:pb-0 transition-colors duration-1000 ease-out" id="body-bg">
 
