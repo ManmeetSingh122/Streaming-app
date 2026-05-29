@@ -73,7 +73,7 @@ let currentDetailItem = null;
 let activeBannerEl = 1;
 let searchDebounceTimer;
 let appInitialized = false;
-const LOCAL_BACKEND = window.NETWATCH_BACKEND || '';
+const LOCAL_BACKEND = window.NETWATCH_BACKEND || 'https://web-production-aeed3.up.railway.app';
 
 // DOM Elements
 const navbar = $('navbar');
