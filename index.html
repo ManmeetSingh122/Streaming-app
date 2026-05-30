@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,9 +10,16 @@
     <meta name="theme-color" content="#000000">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 
-    <!-- Backend URL: set to Railway deployment URL -->
+    <!-- Backend URL: set to Railway deployment URL in production.
+         Leave empty string to use same origin (local dev via Flask). -->
 <script>
-window.NETWATCH_BACKEND = 'https://web-production-aeed3.up.railway.app';
+window.NETWATCH_BACKEND = (function() {
+    var h = window.location.hostname;
+
+    if (h === '127.0.0.1' || h === 'localhost') return '';
+
+    return window.NETWATCH_BACKEND_URL || 'https://web-production-aeed3.up.railway.app';
+})();
 
 window.dismissProfileScreen = function(profile = 'main') {
     const screen = document.getElementById('profile-screen');
@@ -57,7 +64,7 @@ window.dismissProfileScreen = function(profile = 'main') {
             </button>
              <button class="profile-card flex flex-col items-center gap-4 cursor-pointer group outline-none" onclick="dismissProfileScreen('kids')" aria-label="Use kids profile">
                 <div class="profile-avatar profile-avatar-kids pointer-events-none">
-                    <svg class="w-10 h-10 text-white/95" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-10 h-10 text-white/95" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <span class="text-white/60 group-hover:text-white group-focus:text-white transition-colors text-sm font-medium pointer-events-none">Kids</span>
             </button>
@@ -124,7 +131,7 @@ window.dismissProfileScreen = function(profile = 'main') {
     <div id="search-overlay" class="fixed inset-0 bg-black/72 z-[200] hidden flex-col search-glass animate-fade-in pt-24 px-5 md:px-12">
         <div class="flex items-center border-b border-white/15 pb-4 relative max-w-6xl mx-auto w-full">
             <svg class="w-7 h-7 text-white/50 absolute left-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-            <input type="search" id="search-input" class="w-full bg-transparent text-white text-3xl md:text-5xl outline-none pl-12 font-semibold placeholder-white/25" placeholder="Search movies, shows...">
+            <input type="search" id="search-input" class="w-full bg-transparent text-white text-3xl md:text-5xl outline-none pl-12 font-semibold placeholder-white/25" placeholder="Search movies, shows, people" autocomplete="off">
             <button id="close-search-btn" class="icon-glass-btn ml-4" aria-label="Close search">&times;</button>
         </div>
         <div class="mt-8 overflow-y-auto no-scrollbar h-full pb-24 max-w-6xl mx-auto w-full">
@@ -139,15 +146,15 @@ window.dismissProfileScreen = function(profile = 'main') {
     <div class="md:hidden fixed bottom-6 left-0 right-0 w-full z-50 px-4 flex justify-center pointer-events-none">
         <nav class="mobile-dock liquid-glass flex justify-between items-center px-4 py-3 gap-4 pointer-events-auto" aria-label="Mobile navigation">
             <button class="mobile-nav-item flex flex-col items-center gap-1 text-white transition-transform active:scale-90 outline-none w-12" data-nav="all" aria-label="Watch Now">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2h2v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
                 <div class="nav-indicator w-1 h-1 bg-white rounded-full transition-opacity duration-300 opacity-100 mt-1"></div>
             </button>
             <button class="mobile-nav-item flex flex-col items-center gap-1 text-white/50 hover:text-white transition-transform active:scale-90 outline-none w-12" data-nav="movies" aria-label="Movies">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
                 <div class="nav-indicator w-1 h-1 bg-white rounded-full transition-opacity duration-300 opacity-0 mt-1"></div>
             </button>
             <button class="mobile-nav-item flex flex-col items-center gap-1 text-white/50 hover:text-white transition-transform active:scale-90 outline-none w-12" data-nav="tv" aria-label="Shows">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7z"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm5 12h6"></path></svg>
                 <div class="nav-indicator w-1 h-1 bg-white rounded-full transition-opacity duration-300 opacity-0 mt-1"></div>
             </button>
             <button class="mobile-nav-item flex flex-col items-center gap-1 text-white/50 hover:text-white transition-transform active:scale-90 outline-none w-12" data-nav="categories" aria-label="Categories">
@@ -155,7 +162,7 @@ window.dismissProfileScreen = function(profile = 'main') {
                 <div class="nav-indicator w-1 h-1 bg-white rounded-full transition-opacity duration-300 opacity-0 mt-1"></div>
             </button>
             <button class="mobile-nav-item flex flex-col items-center gap-1 text-white/50 hover:text-white transition-transform active:scale-90 outline-none w-12" data-nav="mylist" aria-label="My List">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-4-7 4V5z"></path></svg>
                 <div class="nav-indicator w-1 h-1 bg-white rounded-full transition-opacity duration-300 opacity-0 mt-1"></div>
             </button>
         </nav>
@@ -174,8 +181,8 @@ window.dismissProfileScreen = function(profile = 'main') {
         
         <div class="z-10 px-5 md:px-16 pb-24 md:pb-32 max-w-3xl relative">
             <p id="banner_kicker" class="hero-kicker transform translate-y-4 opacity-0 transition-all duration-700 ease-apple">Featured</p>
-            <img id="banner_title_img" src="" alt="Movie Title" class="h-16 md:h-24 object-contain object-left mb-6 transform translate-y-4 opacity-0 transition-all duration-700 ease-apple delay-100">
-            <h1 id="banner_title" class="text-4xl md:text-7xl font-semibold pb-2 tracking-tight leading-[0.95] drop-shadow-lg transform translate-y-4 opacity-0 transition-all duration-700 ease-apple delay-150"></h1>
+            <img id="banner_title_img" src="" alt="Movie Title" class="h-16 md:h-24 object-contain object-left mb-6 transform translate-y-4 opacity-0 transition-all duration-700 ease-apple delay-100 filter drop-shadow-lg hidden">
+            <h1 id="banner_title" class="text-4xl md:text-7xl font-semibold pb-2 tracking-tight leading-[0.95] drop-shadow-lg transform translate-y-4 opacity-0 transition-all duration-700 ease-apple delay-100"></h1>
             
             <p id="banner_description" class="text-sm md:text-base pt-2 leading-relaxed max-w-[90%] md:max-w-xl font-medium text-white/80 line-clamp-3 transform translate-y-4 opacity-0 transition-all duration-700 ease-apple delay-200"></p>
 
@@ -189,11 +196,11 @@ window.dismissProfileScreen = function(profile = 'main') {
             
             <div id="banner_buttons" class="flex flex-row gap-4 mt-8 transform translate-y-4 opacity-0 transition-all duration-700 ease-apple delay-300">
                 <button id="main_play_btn" class="primary-action">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.556.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                     Play
                 </button>
                 <button id="banner_info_btn" class="secondary-action">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 20.5a8.5 8.5 0 100-17 8.5 8.5 0 000 17z"></path></svg>
                     More Info
                 </button>
             </div>
@@ -258,13 +265,13 @@ window.dismissProfileScreen = function(profile = 'main') {
                 <div id="sheet-episode-controls" class="hidden grid-cols-2 gap-3 mb-6">
                     <label class="text-xs font-semibold uppercase tracking-[0.12em] text-white/50">
                         Season
-                        <select id="sheet-season-input" class="mt-2 w-full rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3 text-base font-semibold text-white outline-none focus:border-white">
+                        <select id="sheet-season-input" class="mt-2 w-full rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3 text-base font-semibold text-white outline-none focus:border-white/40 cursor-pointer">
                             <option value="1">Season 1</option>
                         </select>
                     </label>
                     <label class="text-xs font-semibold uppercase tracking-[0.12em] text-white/50">
                         Episode
-                        <select id="sheet-episode-input" class="mt-2 w-full rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3 text-base font-semibold text-white outline-none focus:border-white">
+                        <select id="sheet-episode-input" class="mt-2 w-full rounded-lg border border-white/10 bg-white/[0.08] px-4 py-3 text-base font-semibold text-white outline-none focus:border-white/40 cursor-pointer">
                             <option value="1">Episode 1</option>
                         </select>
                     </label>
@@ -272,7 +279,7 @@ window.dismissProfileScreen = function(profile = 'main') {
 
                 <div class="flex gap-3 mb-8">
                     <button id="sheet-play-btn" class="primary-action flex-1 justify-center">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.556.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                         Play
                     </button>
                     <button id="sheet-add-list" class="icon-glass-btn add-list-btn" aria-label="Add to My List">
@@ -287,3 +294,7 @@ window.dismissProfileScreen = function(profile = 'main') {
     <script type="module" src="./js/main.js?v=9010"></script>
 </body>
 </html>
+
+
+
+
