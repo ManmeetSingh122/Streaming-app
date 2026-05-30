@@ -1,7 +1,9 @@
 export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original";
 export const SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
-const LOCAL_BACKEND = 'https://web-production-aeed3.up.railway.app';
+const LOCAL_BACKEND = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") && window.location.port === "5000"
+    ? ""
+    : "http://127.0.0.1:5000";
 const LOCAL_TMDB_FALLBACK_KEY = "e04a7390c63382a724d5a56b6b7139a8";
 const IS_LOCAL_APP = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
 
