@@ -73,9 +73,9 @@ let currentDetailItem = null;
 let activeBannerEl = 1;
 let searchDebounceTimer;
 let appInitialized = false;
-const LOCAL_BACKEND = (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') && window.location.port === '5000'
-    ? ''
-    : 'http://127.0.0.1:5000';
+const LOCAL_BACKEND =
+    window.NETWATCH_BACKEND ||
+    'https://web-production-aeed3.up.railway.app';
 
 // DOM Elements
 const navbar = $('navbar');
