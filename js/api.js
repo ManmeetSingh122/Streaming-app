@@ -3,7 +3,7 @@ export const SMALL_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const LOCAL_BACKEND =
     window.NETWATCH_BACKEND ||
-    "https://web-production-aeed3.up.railway.app";
+    "https://manmeet778-scraper.hf.space";
 const LOCAL_TMDB_FALLBACK_KEY = "e04a7390c63382a724d5a56b6b7139a8";
 const IS_LOCAL_APP = window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost";
 
