@@ -1,6 +1,6 @@
 import { fetchTMDB, endpoints, IMAGE_BASE_URL, SMALL_IMAGE_URL, getGenreNames } from './api.js?v=9006';
 
-const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"%3E%3Cdefs%3E%3ClinearGradient id="g" x1="0" x2="1" y1="0" y2="1"%3[...]
+const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"%3E%3Cdefs%3E%3ClinearGradient id="g" x1="0" x2="1" y1="0" y2="1"%3E%3Cstop stop-color="%2317171a"/%3E%3Cstop offset="1" stop-color="%23030304"/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill="url(%23g)" width="1200" height="675"/%3E%3Cpath d="M520 248h160v180H520z" fill="%23ffffff" fill-opacity=".08"/%3E%3Cpath d="M558 292l90 46-90 46z" fill="%23ffffff" fill-opacity=".38"/%3E%3C/svg%3E';
 
 function safeGetLocal(key) {
     try {
