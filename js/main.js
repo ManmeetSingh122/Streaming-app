@@ -1,6 +1,6 @@
-﻿import { fetchTMDB, endpoints, IMAGE_BASE_URL, SMALL_IMAGE_URL, getGenreNames } from './api.js?v=9006';
+import { fetchTMDB, endpoints, IMAGE_BASE_URL, SMALL_IMAGE_URL, getGenreNames } from './api.js?v=9006';
 
-const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"%3E%3Cdefs%3E%3ClinearGradient id="g" x1="0" x2="1" y1="0" y2="1"%3E%3Cstop stop-color="%2317171a"/%3E%3Cstop offset="1" stop-color="%23030304"/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect fill="url(%23g)" width="1200" height="675"/%3E%3Cpath d="M520 248h160v180H520z" fill="%23ffffff" fill-opacity=".08"/%3E%3Cpath d="M558 292l90 46-90 46z" fill="%23ffffff" fill-opacity=".38"/%3E%3C/svg%3E';
+const FALLBACK_IMAGE = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675"%3E%3Cdefs%3E%3ClinearGradient id="g" x1="0" x2="1" y1="0" y2="1"%3[...]
 
 function safeGetLocal(key) {
     try {
@@ -75,7 +75,7 @@ let searchDebounceTimer;
 let appInitialized = false;
 const LOCAL_BACKEND =
     window.NETWATCH_BACKEND ||
-    'https://web-production-aeed3.up.railway.app';
+    'https://manmeet778-scraper.hf.space';
 
 // DOM Elements
 const navbar = $('navbar');
@@ -671,7 +671,7 @@ async function populateSeasonEpisodeSelects(item, seasonSelect, episodeSelect) {
         seasons.forEach(s => {
             const opt = document.createElement('option');
             opt.value = s.season_number;
-            opt.textContent = `Season ${s.season_number}${s.name && s.name !== `Season ${s.season_number}` ? ` â€” ${s.name}` : ''}`;
+            opt.textContent = `Season ${s.season_number}${s.name && s.name !== `Season ${s.season_number}` ? ` â€" ${s.name}` : ''}`;
             if (s.season_number === currentSeason) opt.selected = true;
             seasonSelect.appendChild(opt);
         });
@@ -702,7 +702,7 @@ async function populateEpisodeSelect(tmdbId, season, episodeSelect, selectedEpis
             episodes.forEach(ep => {
                 const opt = document.createElement('option');
                 opt.value = ep.episode_number;
-                opt.textContent = `E${ep.episode_number}${ep.name ? ` â€” ${ep.name}` : ''}`;
+                opt.textContent = `E${ep.episode_number}${ep.name ? ` â€" ${ep.name}` : ''}`;
                 if (ep.episode_number === selectedEpisode) opt.selected = true;
                 episodeSelect.appendChild(opt);
             });
@@ -775,8 +775,8 @@ function setAddButtonState(button, item) {
     const isInList = myWatchlist.some(entry => entry.id === item.id);
     button.setAttribute('aria-label', isInList ? 'Remove from My List' : 'Add to My List');
     button.innerHTML = isInList
-        ? '<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>'
-        : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>';
+        ? '<svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.41[...]
+        : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path[...]
 }
 
 function toggleWatchlist(item, button) {
@@ -806,7 +806,7 @@ function showMyList() {
     scrollToTop();
 
     if (myWatchlist.length === 0) {
-        renderEmptyState('Your list is empty', isKidsProfile() ? 'Add kids movies or shows from the details sheet and they will appear here.' : 'Add movies or shows from the details sheet and they will appear here.');
+        renderEmptyState('Your list is empty', isKidsProfile() ? 'Add kids movies or shows from the details sheet and they will appear here.' : 'Add movies or shows from the details sheet and they wil[...]
         return;
     }
 
@@ -1247,6 +1247,3 @@ function bootFromSavedProfile() {
 }
 
 bootFromSavedProfile();
-
-
-
